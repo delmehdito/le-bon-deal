@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Bon Deal</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f8f6;color:#19352b;font-family:Arial,sans-serif}
+header{background:#126b54;color:white;padding:22px;font-size:24px;font-weight:bold}
+main{max-width:700px;margin:auto;padding:28px 18px}
+h1{font-size:34px}
+p{line-height:1.6;color:#607168}
+.cards{display:grid;grid-template-columns:1fr;gap:16px;margin-top:28px}
+.card{background:white;border:1px solid #dce8e1;border-radius:18px;padding:24px;text-align:left;color:#19352b;cursor:pointer}
+.emoji{font-size:36px}
+h2{font-size:21px}
+.action{background:#126b54;color:white;border:0;border-radius:10px;padding:13px;font-weight:bold}
+#search{display:none;margin-top:24px;padding:20px;background:white;border-radius:16px}
+input{display:block;width:100%;padding:13px;margin:10px 0 18px;border:1px solid #ccd9d1;border-radius:9px;font-size:16px}
+footer{text-align:center;padding:28px;font-size:13px}
+</style>
+</head>
+<body>
+<header>🟢 Le Bon Deal</header>
+<main>
+<p>LES BONNES AFFAIRES, SIMPLEMENT</p>
+<h1>Quel est votre besoin ?</h1>
+<p>Trouvez un service, réalisez vos travaux ou dénichez une bonne affaire.</p>
+<div class="cards">
+<button class="card" onclick="choisir('service')">
+<span class="emoji">🛠️</span>
+<h2>Réparation / construction</h2>
+<p>Dépannage, rénovation, travaux et services.</p>
+<strong>Rechercher un professionnel →</strong>
+</button>
+<button class="card" onclick="choisir('achat')">
+<span class="emoji">🛍️</span>
+<h2>Achat</h2>
+<p>Recherchez des articles et de bonnes affaires.</p>
+<strong>Rechercher un article →</strong>
+</button>
+</div>
+<section id="search">
+<h2 id="titre">Votre recherche</h2>
+<form onsubmit="rechercher(event)">
+<label for="mot">Que recherchez-vous ?</label>
+<input id="mot" required placeholder="Ex. : vélo, plombier…">
+<label for="ville">Ville ou code postal</label>
+<input id="ville" placeholder="Ex. : Nevers, 58000">
+<button class="action" type="submit">Préparer ma recherche</button>
+</form>
+<p id="resultat"></p>
+</section>
+</main>
+<footer>Le Bon Deal · Projet en construction</footer>
+<script>
+let categorie="achat";
+function choisir(type){
+categorie=type;
+document.getElementById("titre").textContent=type==="service"?"Réparation / construction":"Recherche d'un article";
+document.getElementById("search").style.display="block";
+document.getElementById("search").scrollIntoView({behavior:"smooth"});
+}
+function rechercher(e){
+e.preventDefault();
+let mot=document.getElementById("mot").value;
+let ville=document.getElementById("ville").value;
+document.getElementById("resultat").textContent="Recherche : "+mot+(ville?" — "+ville:"")+". Le catalogue sera connecté dans une prochaine version.";
+}
+</script>
+</body>
+</html>
