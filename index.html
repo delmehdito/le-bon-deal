@@ -20,7 +20,19 @@ main{max-width:1100px;margin:auto;padding:0 18px}.hero{margin:22px 0 16px;border
 <div class="preview" id="preview"><img id="thumb" alt="Aperçu"><div style="flex:1;min-width:0"><strong id="filename"></strong><p class="muted" id="fileinfo"></p><button class="btn outline" id="remove" type="button">Retirer le fichier</button></div></div>
 <div class="formgrid"><div class="field"><label for="price">PRIX INDIQUÉ (€), SI CONNU</label><input id="price" type="number" min="0" step=".01" placeholder="Ex. : 850"></div><div class="field"><label for="item">PRODUIT OU TRAVAUX</label><input id="item" placeholder="Ex. : remplacement chauffe-eau"></div><div class="field full"><label for="details">DÉTAILS UTILES (FACULTATIF)</label><textarea id="details" rows="2" placeholder="Marque, modèle, quantités, main-d'œuvre…"></textarea></div></div>
 <div id="quotaStatus" class="notice" style="display:block;margin-top:10px">Analyses offertes : 3 disponibles.</div>
-<button class="btn primary" id="analyze" type="button" style="width:100%;margin-top:13px">Préparer l'analyse →</button><div class="notice" id="scanNotice"></div><div class="result" id="result" aria-live="polite"></div><p class="muted">Cette version ne transmet pas les documents à une IA. Ne chargez que les informations nécessaires, car un devis peut contenir des données personnelles.</p></div></section>
+<button class="btn primary" id="analyze" type="button" style="width:100%;margin-top:13px">Préparer l'analyse →</button>
+<div id="ocrPanel" style="margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fbfdfb">
+  <h3 style="margin:0 0 6px">Lire et vérifier le devis</h3>
+  <p class="muted">Après avoir choisi une photo ou un PDF, lance la lecture. Le texte sera extrait dans ton navigateur. Vérifie toujours les montants reconnus.</p>
+  <button class="btn light" id="readDocument" type="button" style="width:100%">Lire le texte de la photo / du PDF</button>
+  <div id="ocrStatus" class="notice" style="display:none"></div>
+  <progress id="ocrProgress" max="100" value="0" style="display:none;width:100%;margin:8px 0"></progress>
+  <label for="ocrText" class="muted" style="display:block;margin:8px 0 5px;font-weight:bold">TEXTE RECONNU — À VÉRIFIER</label>
+  <textarea id="ocrText" rows="8" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:10px" placeholder="Le texte reconnu apparaîtra ici."></textarea>
+  <div class="rowbtn" style="margin-top:8px"><button class="btn outline" id="copyOcr" type="button">Copier le texte</button><button class="btn light" id="extractFields" type="button">Extraire les informations</button></div>
+  <div id="extractedFields" class="result" style="display:none"></div>
+</div>
+<div class="notice" id="scanNotice"></div><div class="result" id="result" aria-live="polite"></div><p class="muted">Cette version ne transmet pas les documents à une IA. Ne chargez que les informations nécessaires, car un devis peut contenir des données personnelles.</p></div></section>
 <section class="hero"><div class="eyebrow">Le réflexe malin avant d'acheter</div><h1>Le bon choix,<br>au bon prix.</h1><p>Analysez un devis, comparez un produit ou trouvez un professionnel. Commencez par une photo ou une recherche.</p>
 <form class="search" id="searchForm"><div class="field"><label for="kind">VOTRE BESOIN</label><select id="kind"><option value="achat">🛍️ Achat & bonnes affaires</option><option value="service">🛠️ Réparation / construction</option></select></div><div class="field"><label for="category">CATÉGORIE</label><select id="category"></select></div><div class="field"><label for="city">VILLE OU CODE POSTAL</label><input id="city" placeholder="Ex. : Nevers, 58000"></div><button class="btn primary">Rechercher →</button></form><div class="notice" id="searchNotice"></div></section>
 
@@ -47,6 +59,8 @@ main{max-width:1100px;margin:auto;padding:0 18px}.hero{margin:22px 0 16px;border
   <div class="notice" style="display:block;margin-top:14px">Prototype : le compteur ci-dessous est enregistré uniquement dans ce navigateur. Il ne constitue pas un contrôle sécurisé par compte et aucun paiement réel n'est activé.</div>
 </section>
 </main><footer><strong>✓ Le Bon Deal</strong><p>Prototype en construction : les résultats ne remplacent pas un devis professionnel ni une comparaison de prix en temps réel.</p></footer>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 const maps={achat:['Maison & jardin','Électronique','Véhicules','Mode & accessoires','Loisirs & sport','Électroménager','Bricolage & outils','Autres articles'],service:['Travaux & rénovation','Électricité & domotique','Plomberie','Chauffage','Mécanique automobile','Peinture & décoration','Jardinage','Autres services']};
 const kind=document.querySelector('#kind'),cat=document.querySelector('#category');
@@ -75,4 +89,76 @@ let q=document.createElement('p');q.textContent='Vérifiez les quantités, réf�
 let limit=document.createElement('p');limit.className='muted';limit.textContent='Limite actuelle : cette version ne récupère pas automatiquement le contenu des sites, ne lit pas la photo/PDF et ne consulte pas les prix du marché. Aucun score ou verdict de prix n’est inventé. Une connexion sécurisée à un serveur/IA et à des sources de prix sera nécessaire pour l’analyse complète.';r.appendChild(limit);
 let qs=document.querySelector('#quotaStatus');if(qs)qs.textContent='Analyses offertes utilisées : '+used+'/3. '+(used===1?'La première est sans publicité.':used<3?'Les analyses 2 et 3 sont prévues avec publicité.':'Les analyses offertes sont terminées.');
 });
+
+// Lecture OCR côté navigateur (image ou première page PDF), puis extraction indicative.
+const readDocBtn=document.querySelector('#readDocument');
+const ocrStatus=document.querySelector('#ocrStatus');
+const ocrProgress=document.querySelector('#ocrProgress');
+const ocrText=document.querySelector('#ocrText');
+function ocrMsg(text){ocrStatus.textContent=text;ocrStatus.style.display='block';}
+async function pdfFirstPage(file){
+ if(!window.pdfjsLib)throw new Error('La bibliothèque PDF ne s’est pas chargée. Vérifie Internet.');
+ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+ const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
+ const page=await pdf.getPage(1),viewport=page.getViewport({scale:1.8}),canvas=document.createElement('canvas');
+ canvas.width=Math.ceil(viewport.width);canvas.height=Math.ceil(viewport.height);
+ await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;return canvas;
+}
+if(readDocBtn)readDocBtn.addEventListener('click',async()=>{
+ if(!chosen){ocrMsg('Choisis d’abord une photo ou un PDF dans le bloc au-dessus.');return;}
+ if(!window.Tesseract){ocrMsg('Le moteur OCR ne s’est pas chargé. Vérifie Internet et recharge la page.');return;}
+ readDocBtn.disabled=true;ocrProgress.style.display='block';ocrProgress.value=0;ocrText.value='';let worker=null;
+ try{
+  let source=chosen;
+  if(chosen.type==='application/pdf'||chosen.name.toLowerCase().endsWith('.pdf')){ocrMsg('Lecture de la première page du PDF…');source=await pdfFirstPage(chosen);}
+  ocrMsg('Chargement de la reconnaissance française…');
+  worker=await Tesseract.createWorker('fra',1,{logger:m=>{if(m.status)ocrMsg('Lecture : '+m.status+(m.progress!=null?' ('+Math.round(m.progress*100)+' %)':''));if(m.progress!=null)ocrProgress.value=Math.round(m.progress*100);}});
+  const res=await worker.recognize(source);ocrText.value=(res.data.text||'').trim();
+  ocrMsg(ocrText.value?'Lecture terminée. Vérifie les chiffres et les montants.':'Aucun texte reconnu. Essaie une photo plus nette, éclairée et prise de face.');
+ }catch(e){ocrMsg('Échec de la lecture : '+(e&&e.message?e.message:'erreur inconnue')+'. Vérifie Internet et réessaie.');}
+ finally{if(worker)try{await worker.terminate()}catch(e){}readDocBtn.disabled=false;}
+});
+const moneyToNumber=s=>{
+ let x=s.replace(/\s/g,'').replace(/[€]/g,'').replace(/EUR/ig,'').replace(/\.(?=\d{3}(?:\D|$))/g,'').replace(',','.');
+ const n=Number(x);return Number.isFinite(n)?n:null;
+};
+function extractQuote(text){
+ const lines=text.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+ const joined=lines.join('\n');
+ const productLine=lines.find(s=>/XIAOMI|SMARTPHONE|CHAUFFE.?EAU|REMPLACEMENT|MAIN.?D.?OEUVRE|PRESTATION/i.test(s)&&s.length>3)||'Non identifié automatiquement';
+ const totalLine=lines.find(s=>/(total\s*(?:à\s*payer|ttc)?|net\s*à\s*payer|montant\s*total)/i.test(s))||'';
+ const discountLine=lines.find(s=>/(remise|rabais|réduction)/i.test(s))||'';
+ const dateMatch=joined.match(/\b(\d{1,2}[\/.-]\d{1,2}[\/.-]\d{2,4})\b/);
+ const currencyMatches=[...joined.matchAll(/(?:\d{1,3}(?:[ .]\d{3})*|\d+)[,.]\d{2}\s*(?:€|EUR)\b?/gi)].map(m=>m[0]);
+ const amountNums=currencyMatches.map(m=>moneyToNumber(m)).filter(n=>n!==null);
+ const totalMatch=totalLine.match(/(?:€\s*)?(\d[\d .]*[,.]\d{2})\s*(?:€|EUR)?/i);
+ const total=totalMatch?moneyToNumber(totalMatch[1]):null;
+ const discountMatch=discountLine.match(/(?:remise|rabais|réduction)[^\d]{0,35}(\d[\d .]*[,.]\d{2})\s*(?:€|EUR)?/i);
+ const discount=discountMatch?moneyToNumber(discountMatch[1]):null;
+ const vals=amountNums.slice().sort((a,b)=>a-b);
+ const before=discount!==null&&total!==null?vals.find(v=>Math.abs((v-discount)-total)<0.02):null;
+ return {productLine,totalLine,discountLine,date:dateMatch?dateMatch[1]:null,total,discount,before,currencyMatches};
+}
+document.querySelector('#extractFields')?.addEventListener('click',()=>{
+ const t=ocrText.value,box=document.querySelector('#extractedFields');
+ if(!t.trim()){box.textContent='Lis d’abord le document ou colle le texte reconnu.';box.style.display='block';return;}
+ const d=extractQuote(t),rows=[];
+ rows.push('EXTRACTION AUTOMATIQUE — À VÉRIFIER');
+ rows.push('Produit / prestation probable : '+d.productLine);
+ rows.push('Date possible : '+(d.date||'non repérée'));
+ rows.push('Ligne de total : '+(d.totalLine||'non repérée'));
+ rows.push('Montant total repéré : '+(d.total!==null?d.total.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'à vérifier manuellement'));
+ rows.push('Ligne de remise : '+(d.discountLine||'non repérée'));
+ rows.push('Remise repérée : '+(d.discount!==null?d.discount.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'non repérée automatiquement'));
+ if(d.before!==null&&d.discount!==null&&d.total!==null)rows.push('Contrôle arithmétique possible : '+d.before.toLocaleString('fr-FR',{style:'currency',currency:'EUR'})+' − '+d.discount.toLocaleString('fr-FR',{style:'currency',currency:'EUR'})+' = '+d.total.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}));
+ else rows.push('Contrôle arithmétique : il manque des données clairement identifiées pour vérifier le calcul automatiquement.');
+ rows.push('Important : extraction indicative, pas une comparaison de prix du marché. Confirme chaque donnée dans le document original.');
+ box.textContent=rows.join('\n');box.style.display='block';
+});
+document.querySelector('#copyOcr')?.addEventListener('click',async()=>{
+ if(!ocrText.value){ocrMsg('Aucun texte à copier.');return;}
+ try{await navigator.clipboard.writeText(ocrText.value);ocrMsg('Texte copié.');}
+ catch(e){ocrText.focus();ocrText.select();ocrMsg('Texte sélectionné : choisis Copier dans le menu du téléphone.');}
+});
+
 </script></body></html>
