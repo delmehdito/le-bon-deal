@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#126b54">
+<meta name="description" content="Le Bon Deal : trouvez des services, des professionnels et de bonnes affaires près de chez vous.">
+<title>Le Bon Deal — Les bonnes affaires près de chez vous</title>
+<style>
+:root{--green:#126b54;--dark:#0b4638;--mint:#e8f5ee;--ink:#17372d;--muted:#63766d;--line:#dce8e1;--paper:#f7faf8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,sans-serif}a{color:inherit;text-decoration:none}button,input,select{font:inherit}
+.topbar{background:var(--dark);color:#eaf7f0;text-align:center;padding:8px 14px;font-size:12px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.nav{max-width:1120px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:850;color:var(--dark);white-space:nowrap}.mark{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--green);color:#fff;font-size:23px}
+.links{display:flex;align-items:center;gap:20px;font-size:14px;font-weight:700}.links a:hover{color:var(--green)}.cta,.primary{border:0;background:var(--green);color:#fff;padding:12px 16px;border-radius:11px;font-weight:800;cursor:pointer}.cta:hover,.primary:hover{background:var(--dark)}
+main{max-width:1120px;margin:auto;padding:0 22px}.hero{margin:26px 0 22px;overflow:hidden;border-radius:26px;background:linear-gradient(125deg,#0b4638,#126b54 62%,#258765);color:white;padding:40px 34px 30px;position:relative}.hero:after{content:"";position:absolute;width:300px;height:300px;border:48px solid #ffffff12;border-radius:50%;right:-70px;top:-120px;pointer-events:none}
+.eyebrow{font-size:12px;font-weight:850;letter-spacing:1.5px;text-transform:uppercase;color:#bfe9d1}h1{font-size:clamp(32px,5vw,50px);line-height:1.07;letter-spacing:-1.5px;max-width:650px;margin:14px 0}.hero-copy{color:#e0f1e7;max-width:560px;line-height:1.6;font-size:16px;margin:0 0 24px}
+.search-panel{position:relative;z-index:1;background:#fff;color:var(--ink);border-radius:17px;padding:15px;display:grid;grid-template-columns:1fr 1.2fr 1fr auto;gap:10px;align-items:end;box-shadow:0 12px 30px #082f241f}.field label{display:block;font-size:11px;color:var(--muted);font-weight:800;margin:0 0 7px 3px;text-transform:uppercase;letter-spacing:.5px}.field select,.field input{width:100%;min-width:0;border:1px solid var(--line);background:#fbfdfb;color:var(--ink);border-radius:10px;padding:13px 10px;outline-color:var(--green)}.search-panel .primary{min-height:45px;white-space:nowrap}
+.section{margin:32px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:16px}.section-head h2{margin:0;font-size:23px;letter-spacing:-.5px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.category{background:white;border:1px solid var(--line);border-radius:17px;padding:18px 15px;min-height:145px;transition:transform .15s,border-color .15s}.category:hover{transform:translateY(-3px);border-color:#9ccab2}.icon{width:46px;height:46px;display:grid;place-items:center;background:var(--mint);border-radius:14px;font-size:24px;margin-bottom:13px}.category h3{font-size:16px;margin:0 0 7px}.category p{font-size:13px;line-height:1.5;color:var(--muted);margin:0}
+.ad{border:1px dashed #a8c7b5;border-radius:15px;background:#f0f7f2;padding:17px;text-align:center;color:#648071}.ad-label{font-size:10px;text-transform:uppercase;letter-spacing:1.3px;font-weight:850;color:#718c7d}.ad-title{font-weight:800;color:#315a47;margin:6px 0 3px}.ad-note{font-size:12px;line-height:1.5}.banner{min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center}.ad-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.ad-box{min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.features{display:grid;grid-template-columns:1.1fr .9fr;gap:15px}.feature{border-radius:19px;padding:23px;background:#fff;border:1px solid var(--line)}.feature.green{background:var(--mint);border-color:#d2e9db}.feature h3{font-size:19px;margin:0 0 8px}.feature p{color:var(--muted);line-height:1.6;margin:0 0 15px;font-size:14px}.text-link{font-size:13px;font-weight:800;color:var(--green)}.notice{display:none;margin-top:13px;padding:13px;border-radius:11px;background:#fff5d8;color:#684f12;font-size:14px;line-height:1.5}
+footer{margin-top:38px;background:#103f33;color:#e5f3eb;padding:28px 22px}.foot{max-width:1120px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}footer p{color:#c1d9cc;font-size:12px;line-height:1.6;max-width:520px}footer .brand{color:white}footer .mark{background:#ffffff20}
+@media(max-width:760px){.nav{padding:11px 14px}.brand{font-size:20px}.mark{width:38px;height:38px}.links{gap:10px}.links a:not(.cta){display:none}.cta{padding:10px;font-size:12px}main{padding:0 13px}.hero{margin:15px 0;border-radius:21px;padding:28px 16px 17px}.hero-copy{font-size:14px}.search-panel{grid-template-columns:1fr 1fr;padding:11px;gap:10px}.field:first-child{grid-column:1/-1}.search-panel .primary{grid-column:1/-1;width:100%}.grid{grid-template-columns:repeat(2,1fr);gap:9px}.category{padding:14px 12px;min-height:140px}.section{margin:25px 0}.section-head h2{font-size:20px}.ad-grid,.features{grid-template-columns:1fr}.ad-box{min-height:115px}.feature{padding:19px}}
+</style>
+</head>
+<body>
+<div class="topbar">Les bonnes affaires et les services près de chez vous</div>
+<header><nav class="nav" aria-label="Navigation principale">
+<a class="brand" href="#" aria-label="Le Bon Deal, accueil"><span class="mark">✓</span><span>Le Bon Deal</span></a>
+<div class="links"><a href="#categories">Catégories</a><a href="#services">Services</a><a href="#publicite">Publicité</a><a class="cta" href="#recherche">Déposer une annonce</a></div>
+</nav></header>
+<main>
+<section class="hero" id="recherche">
+<div class="eyebrow">Simple · Pratique · Près de chez vous</div>
+<h1>Le bon choix,<br>au bon endroit.</h1>
+<p class="hero-copy">Trouvez un professionnel pour vos travaux ou dénichez une bonne affaire. Tout commence par une recherche.</p>
+<form class="search-panel" id="searchForm">
+<div class="field"><label for="type">Votre besoin</label><select id="type" name="type"><option value="achat">🛍️ Achat & bonnes affaires</option><option value="service">🛠️ Réparation / construction</option></select></div>
+<div class="field"><label for="category">Catégorie</label><select id="category" name="category"><option>Maison & jardin</option><option>Électronique</option><option>Véhicules</option><option>Mode & accessoires</option><option>Loisirs & sport</option><option>Autres articles</option></select></div>
+<div class="field"><label for="location">Ville ou code postal</label><input id="location" name="location" placeholder="Ex. : Nevers, 58000" autocomplete="postal-code"></div>
+<button class="primary" type="submit">Rechercher →</button>
+</form><div class="notice" id="searchNotice" role="status"></div>
+</section>
+<section class="ad banner" id="publicite" aria-label="Emplacement publicitaire"><div class="ad-label">Publicité</div><div class="ad-title">Votre marque pourrait apparaître ici</div><div class="ad-note">Emplacement bannière en haut de page · réservé à une future régie publicitaire</div></section>
+<section class="section" id="categories"><div class="section-head"><div><h2>Explorer les catégories</h2><p>Accédez rapidement à ce que vous recherchez.</p></div></div>
+<div class="grid">
+<a class="category" href="#recherche" data-type="achat" data-category="Maison & jardin"><div class="icon">🏡</div><h3>Maison & jardin</h3><p>Équipement, mobilier et extérieur</p></a>
+<a class="category" href="#recherche" data-type="achat" data-category="Électronique"><div class="icon">📱</div><h3>Électronique</h3><p>Téléphones, informatique et audio</p></a>
+<a class="category" href="#recherche" data-type="service" data-category="Travaux & rénovation"><div class="icon">🛠️</div><h3>Travaux & rénovation</h3><p>Réparation, installation et chantier</p></a>
+<a class="category" href="#recherche" data-type="service" data-category="Dépannage à domicile"><div class="icon">🔧</div><h3>Dépannage</h3><p>Des solutions pour la maison</p></a>
+</div></section>
+<section class="section" id="services"><div class="section-head"><div><h2>À découvrir</h2><p>Des espaces prêts à accueillir les premières annonces.</p></div></div>
+<div class="features">
+<article class="feature green"><div class="icon">🤝</div><h3>Vous proposez un service ?</h3><p>Préparez votre présence sur Le Bon Deal et mettez en avant votre activité auprès des personnes de votre secteur.</p><a class="text-link" href="#recherche" data-type="service">Explorer les services →</a></article>
+<article class="feature"><div class="icon">✨</div><h3>Les bonnes affaires</h3><p>Un espace dédié aux articles et aux offres à découvrir. Les annonces seront ajoutées lors d'une prochaine étape.</p><a class="text-link" href="#recherche" data-type="achat">Explorer les achats →</a></article>
+</div></section>
+<section class="section ad-grid" aria-label="Emplacements publicitaires complémentaires">
+<div class="ad ad-box"><div class="ad-label">Publicité · Emplacement 2</div><div class="ad-title">Annonce sponsorisée</div><div class="ad-note">Espace prévu entre les catégories et les annonces.</div></div>
+<div class="ad ad-box"><div class="ad-label">Publicité · Emplacement 3</div><div class="ad-title">Partenaire à la une</div><div class="ad-note">Espace prévu pour une mise en avant commerciale.</div></div>
+</section>
+</main>
+<footer><div class="foot"><div><a class="brand" href="#"><span class="mark">✓</span><span>Le Bon Deal</span></a><p>Un projet en construction pour rapprocher les bonnes affaires, les services et les personnes près de chez elles.</p></div><div><strong>Navigation</strong><p><a href="#categories">Catégories</a> · <a href="#services">Services</a> · <a href="#publicite">Publicité</a></p></div></div></footer>
+<script>
+const typeSelect=document.getElementById('type'),categorySelect=document.getElementById('category');
+const options={achat:['Maison & jardin','Électronique','Véhicules','Mode & accessoires','Loisirs & sport','Autres articles'],service:['Travaux & rénovation','Dépannage à domicile','Électricité & domotique','Plomberie','Peinture & décoration','Jardinage','Autres services']};
+function updateCategories(preferred){const old=preferred||categorySelect.value;categorySelect.innerHTML='';options[typeSelect.value].forEach(name=>{const opt=document.createElement('option');opt.textContent=name;categorySelect.appendChild(opt)});if(options[typeSelect.value].includes(old))categorySelect.value=old}
+typeSelect.addEventListener('change',()=>updateCategories());
+document.querySelectorAll('[data-type]').forEach(link=>link.addEventListener('click',()=>{typeSelect.value=link.dataset.type;updateCategories(link.dataset.category)}));
+document.getElementById('searchForm').addEventListener('submit',event=>{event.preventDefault();const type=typeSelect.value==='service'?'Réparation / construction':'Achat & bonnes affaires';const category=categorySelect.value;const location=document.getElementById('location').value.trim();const notice=document.getElementById('searchNotice');notice.textContent='Votre recherche : '+type+' · '+category+(location?' · '+location:'')+'. Le formulaire est prêt, mais le catalogue d’annonces n’est pas encore connecté.';notice.style.display='block';notice.scrollIntoView({behavior:'smooth',block:'nearest'})});
+</script>
+</body>
+</html>
