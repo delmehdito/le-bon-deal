@@ -83,8 +83,21 @@ document.querySelector('#camera').addEventListener('change',e=>{if(e.target.file
 document.querySelector('#file').addEventListener('change',e=>{if(e.target.files&&e.target.files.length)chooseFile(e.target.files[0]);});
 document.querySelectorAll('#camera,#file').forEach(input=>input.addEventListener('click',()=>{const n=document.querySelector('#scanNotice');n.style.display='none';}));
 document.querySelector('#remove').addEventListener('click',()=>{chosen=null;document.querySelector('#camera').value='';document.querySelector('#file').value='';document.querySelector('#preview').style.display='none';document.querySelector('#result').style.display='none'});
-document.querySelector('#analyze').addEventListener('click',()=>{
+document.querySelector('#analyze').addEventListener('click',async()=>{ 
+// Si une photo ou un PDF est choisi, lancer automatiquement la lecture OCR avant la pré-analyse.
+if(chosen && !ocrText.value.trim() && !/\.docx?$/i.test(chosen.name)){
+ const reader=document.querySelector('#readDocument');
+ reader.click();
+ const started=Date.now();
+ while(reader.disabled && Date.now()-started<120000){await new Promise(resolve=>setTimeout(resolve,300));}
+ if(!ocrText.value.trim()){
+   const msg=document.querySelector('#ocrStatus');
+   if(msg && msg.textContent){msg.scrollIntoView({behavior:'smooth',block:'center'});return;}
+ }
+}
+
 let price=Number(document.querySelector('#price').value),item=document.querySelector('#item').value.trim(),details=document.querySelector('#details').value.trim(),url=document.querySelector('#productUrl').value.trim(),n=document.querySelector('#scanNotice'),r=document.querySelector('#result');
+if(chosen && ocrText.value.trim()){ const extracted=extractQuote(ocrText.value); if((!item || item.length<3) && extracted.productLine!=='Non identifié automatiquement') item=extracted.productLine; if(!price && extracted.total!==null) price=extracted.total; }
 if(!chosen&&!item&&!price&&!details&&!url){n.textContent='Ajoutez une photo/PDF, collez une URL ou renseignez le nom ou le prix.';n.style.display='block';return}
 if(url&&!/^https?:\/\//i.test(url)){n.textContent='L’adresse doit commencer par https:// ou http://';n.style.display='block';return}
 let used=Number(localStorage.getItem('lbd_free_analyses')||'0');
