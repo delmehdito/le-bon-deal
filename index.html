@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -8,79 +9,669 @@
 <title>Le Bon Deal — comparer avant d'acheter</title>
 <style>
 :root{--green:#126b54;--dark:#0b4638;--mint:#e8f5ee;--ink:#17372d;--muted:#63766d;--line:#dce8e1;--bg:#f6faf7;--warn:#fff4d6;--red:#9a342a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:var(--dark);color:white;text-align:center;padding:8px;font-size:12px}.nav{position:sticky;top:0;z-index:2;background:white;border-bottom:1px solid var(--line);padding:12px max(14px,calc((100% - 900px)/2));display:flex;justify-content:space-between;align-items:center}.brand{font-weight:900;font-size:21px;color:var(--dark)}.wrap{max-width:900px;margin:auto;padding:0 14px}.hero{margin:18px 0;background:linear-gradient(125deg,var(--dark),var(--green),#258765);border-radius:20px;padding:25px;color:white}.eyebrow{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:800;color:#bfe9d1}.hero h1{font-size:clamp(30px,5vw,44px);line-height:1.08;margin:9px 0}.hero p{max-width:650px;color:#e0f1e7}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;margin:16px 0}.panel h2{margin:0 0 5px}.muted{font-size:13px;color:var(--muted)}.choices,.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.choice{display:block;text-align:left;border:1px solid var(--line);border-radius:14px;background:white;padding:14px;color:var(--ink)}.choice strong{display:block;font-size:16px;margin:4px 0}.choice.active{border:2px solid var(--green);background:var(--mint)}.ico{font-size:25px}.field{min-width:0}.field label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin:0 0 6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfdfb;color:var(--ink)}.field textarea{resize:vertical}.grid{margin-top:14px}.full{grid-column:1/-1}.upload{background:#f9fcfa;border:1.5px dashed #a8c7b5;border-radius:14px;padding:16px;text-align:center}.btn{border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-weight:750;background:white;color:var(--ink);display:inline-flex;justify-content:center;align-items:center;gap:7px;min-height:44px}.primary{background:var(--green);border-color:var(--green);color:white}.secondary{background:var(--mint);border-color:#b8d8c5;color:var(--dark)}.btn:disabled{opacity:.55;cursor:wait}.file-input{display:block;width:100%;max-width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:white;margin-top:7px}.status{display:none;padding:12px;border-radius:10px;margin-top:12px;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.status.info{display:block;background:#edf5ff;color:#204d70}.status.warn{display:block;background:var(--warn);color:#684f12}.status.ok{display:block;background:var(--mint);color:var(--dark)}.result{display:none;margin-top:14px;border:1px solid #b8d8c5;border-radius:14px;padding:16px;background:white;overflow-wrap:anywhere}.result h3{margin:0 0 8px}.result li{margin:7px 0}.small{font-size:12px}.quota{padding:10px;border-radius:10px;background:var(--mint);font-size:13px;margin:14px 0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}progress{width:100%;height:12px;margin-top:8px}footer{margin-top:28px;background:#103f33;color:white;padding:24px 14px}footer p{font-size:12px;color:#c1d9cc;max-width:700px;margin:8px auto 0}.hidden{display:none!important}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.top{background:var(--dark);color:white;text-align:center;padding:8px;font-size:12px}
+.nav{position:sticky;top:0;z-index:2;background:white;border-bottom:1px solid var(--line);padding:12px max(14px,calc((100% - 900px)/2));display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:900;font-size:21px;color:var(--dark);text-decoration:none}
+.wrap{max-width:900px;margin:auto;padding:0 14px}
+.hero{margin:18px 0;background:linear-gradient(125deg,var(--dark),var(--green),#258765);border-radius:20px;padding:25px;color:white}
+.eyebrow{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:800;color:#bfe9d1}
+.hero h1{font-size:clamp(30px,5vw,44px);line-height:1.08;margin:9px 0}
+.hero p{max-width:650px;color:#e0f1e7}
+.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;margin:16px 0}
+.panel h2{margin:0 0 5px}
+.muted{font-size:13px;color:var(--muted)}
+.choices,.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.choice{display:block;text-align:left;border:1px solid var(--line);border-radius:14px;background:white;padding:14px;color:var(--ink)}
+.choice strong{display:block;font-size:16px;margin:4px 0}
+.choice.active{border:2px solid var(--green);background:var(--mint)}
+.ico{font-size:25px}
+.field{min-width:0}
+.field label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin:0 0 6px}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfdfb;color:var(--ink)}
+.field textarea{resize:vertical}
+.grid{margin-top:14px}
+.full{grid-column:1/-1}
+.upload{background:#f9fcfa;border:1.5px dashed #a8c7b5;border-radius:14px;padding:16px;text-align:center}
+.btn{border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-weight:750;background:white;color:var(--ink);display:inline-flex;justify-content:center;align-items:center;gap:7px;min-height:44px}
+.primary{background:var(--green);border-color:var(--green);color:white}
+.secondary{background:var(--mint);border-color:#b8d8c5;color:var(--dark)}
+.btn:disabled{opacity:.55;cursor:wait}
+.file-input{display:block;width:100%;max-width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:white;margin-top:7px}
+.status{display:none;padding:12px;border-radius:10px;margin-top:12px;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+.status.info{display:block;background:#edf5ff;color:#204d70}
+.status.warn{display:block;background:var(--warn);color:#684f12}
+.status.ok{display:block;background:var(--mint);color:var(--dark)}
+.result{display:none;margin-top:14px;border:1px solid #b8d8c5;border-radius:14px;padding:16px;background:white;overflow-wrap:anywhere}
+.result h3{margin:0 0 8px}
+.result li{margin:7px 0}
+.small{font-size:12px}
+.quota{padding:10px;border-radius:10px;background:var(--mint);font-size:13px;margin:14px 0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+progress{width:100%;height:12px;margin-top:8px}
+footer{margin-top:28px;background:#103f33;color:white;padding:24px 14px}
+footer p{font-size:12px;color:#c1d9cc;max-width:700px;margin:8px auto 0}
+.hidden{display:none!important}
+.admin-panel{border:1px dashed #a8c7b5;background:#fbfdfb}
+summary{font-weight:800;cursor:pointer}
 @media(max-width:600px){.wrap{padding:0 10px}.hero{padding:21px 15px}.panel{padding:13px}.choices,.grid,.actions{grid-template-columns:1fr}.full{grid-column:auto}.nav{padding:10px 12px}}
 </style>
 </head>
 <body>
 <div class="top">Le bon réflexe avant d’acheter ou de faire réaliser des travaux</div>
-<header class="nav"><a class="brand" href="#accueil">✓ Le Bon Deal</a><a class="btn primary" href="#analyse">Commencer</a></header>
+
+<header class="nav">
+  <a class="brand" href="#accueil">✓ Le Bon Deal</a>
+  <a class="btn primary" href="#analyse">Commencer</a>
+</header>
+
 <main class="wrap" id="accueil">
-<section class="hero"><div class="eyebrow">Simple · mobile · pratique</div><h1>Le bon choix,<br>au bon prix.</h1><p>Ajoutez une photo, un PDF ou les informations d’un produit ou d’un devis. L’assistant IA vous aide à repérer les points importants.</p></section>
-<section class="panel" id="analyse">
-<h2>1. Quel est votre besoin ?</h2><p class="muted">Choisissez une entrée pour adapter les catégories.</p>
-<div class="choices"><button type="button" class="choice active" data-kind="achat"><span class="ico">🛍️</span><strong>Achat</strong><span class="muted">Produit, appareil, véhicule, équipement…</span></button><button type="button" class="choice" data-kind="service"><span class="ico">🛠️</span><strong>Réparation / Construction</strong><span class="muted">Devis, facture, travaux, dépannage…</span></button></div>
-<div class="grid"><div class="field"><label for="category">CATÉGORIE</label><select id="category"></select></div><div class="field"><label for="mode">TYPE DE DOCUMENT</label><select id="mode"><option>Devis / facture</option><option>Produit / annonce</option><option>Service / travaux</option></select></div></div>
-<h2 style="margin-top:22px">2. Ajoutez votre document</h2><p class="muted">Photo, capture d’écran, image ou PDF (15 Mo maximum). Pour l’instant, les fichiers Word doivent être convertis en PDF.</p>
-<div class="upload"><div class="ico">📷</div><label class="btn primary" for="camera">Prendre une photo</label><input id="camera" class="hidden" type="file" accept="image/*" capture="environment"><label for="file" style="display:block;text-align:left;font-weight:800;font-size:13px;margin-top:12px">Ou choisir un fichier</label><input id="file" class="file-input" type="file" accept="image/*,.pdf,application/pdf,.doc,.docx"><p class="muted">La photo ou le PDF est lu dans le navigateur. Le texte reconnu est ensuite envoyé à l’assistant IA pour analyse.</p></div>
-<div class="grid"><div class="field"><label for="item">PRODUIT / PRESTATION / MARQUE</label><input id="item" placeholder="Ex. : Xiaomi Redmi A5 128 Go"></div><div class="field"><label for="price">PRIX TOTAL (€)</label><input id="price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex. : 119,99"></div><div class="field"><label for="originalPrice">PRIX AVANT REMISE (€)</label><input id="originalPrice" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Facultatif"></div><div class="field"><label for="discount">REMISE (€)</label><input id="discount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Facultatif"></div><div class="field full"><label for="url">URL DU PRODUIT OU DE L’ANNONCE (FACULTATIF)</label><input id="url" type="url" inputmode="url" placeholder="https://..."></div><div class="field full"><label for="details">DÉTAILS / QUANTITÉS / GARANTIE / MAIN-D’ŒUVRE</label><textarea id="details" rows="3" placeholder="Ajoutez les informations utiles…"></textarea></div></div>
-<div class="quota" id="quotaStatus">3 analyses découvertes disponibles sur cet appareil.</div>
-<div class="actions"><button type="button" class="btn secondary" id="readButton">Lire le document</button><button type="button" class="btn primary" id="analyzeButton">Analyser avec l’IA</button></div>
-<div id="ocrStatus" class="status" role="status" aria-live="polite"></div><progress id="ocrProgress" max="100" value="0" class="hidden"></progress>
-<div class="field" style="margin-top:12px"><label for="ocrText">TEXTE RECONNU (VÉRIFIEZ LES CHIFFRES)</label><textarea id="ocrText" rows="7" placeholder="Le texte extrait de la photo ou du PDF apparaîtra ici. Vous pouvez aussi coller le texte manuellement."></textarea></div>
-<div class="actions"><button type="button" class="btn" id="extractButton">Extraire les montants</button><button type="button" class="btn" id="clearTextButton">Effacer le texte</button></div>
-<div id="result" class="result" aria-live="polite"></div>
-<p class="muted small">Les résultats sont indicatifs. L’IA ne consulte pas automatiquement le site de l’annonce et ne peut pas confirmer qu’un prix est compétitif sans données fiables de comparaison. Vérifiez toujours les montants sur le document original.</p>
-</section>
+  <section class="hero">
+    <div class="eyebrow">Simple · mobile · pratique</div>
+    <h1>Le bon choix,<br>au bon prix.</h1>
+    <p>Ajoutez une photo, un PDF ou les informations d’un produit ou d’un devis. L’assistant IA vous aide à repérer les points importants.</p>
+  </section>
+
+  <section class="panel" id="analyse">
+    <h2>1. Quel est votre besoin ?</h2>
+    <p class="muted">Choisissez une entrée pour adapter les catégories.</p>
+
+    <div class="choices">
+      <button type="button" class="choice active" data-kind="achat">
+        <span class="ico">🛍️</span>
+        <strong>Achat</strong>
+        <span class="muted">Produit, appareil, véhicule, équipement…</span>
+      </button>
+      <button type="button" class="choice" data-kind="service">
+        <span class="ico">🛠️</span>
+        <strong>Réparation / Construction</strong>
+        <span class="muted">Devis, facture, travaux, dépannage…</span>
+      </button>
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label for="category">CATÉGORIE</label>
+        <select id="category"></select>
+      </div>
+      <div class="field">
+        <label for="mode">TYPE DE DOCUMENT</label>
+        <select id="mode">
+          <option>Devis / facture</option>
+          <option>Produit / annonce</option>
+          <option>Service / travaux</option>
+        </select>
+      </div>
+    </div>
+
+    <h2 style="margin-top:22px">2. Ajoutez votre document</h2>
+    <p class="muted">Photo, capture d’écran, image ou PDF (15 Mo maximum). Les fichiers Word doivent être convertis en PDF.</p>
+
+    <div class="upload">
+      <div class="ico">📷</div>
+      <label class="btn primary" for="camera">Prendre une photo</label>
+      <input id="camera" class="hidden" type="file" accept="image/*" capture="environment">
+      <label for="file" style="display:block;text-align:left;font-weight:800;font-size:13px;margin-top:12px">Ou choisir un fichier</label>
+      <input id="file" class="file-input" type="file" accept="image/*,.pdf,application/pdf,.doc,.docx">
+      <p class="muted">Le texte est extrait dans le navigateur avant d’être envoyé à l’assistant IA.</p>
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label for="item">PRODUIT / PRESTATION / MARQUE</label>
+        <input id="item" placeholder="Ex. : Xiaomi Redmi A5 128 Go">
+      </div>
+      <div class="field">
+        <label for="price">PRIX TOTAL (€)</label>
+        <input id="price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex. : 119,99">
+      </div>
+      <div class="field">
+        <label for="originalPrice">PRIX AVANT REMISE (€)</label>
+        <input id="originalPrice" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Facultatif">
+      </div>
+      <div class="field">
+        <label for="discount">REMISE (€)</label>
+        <input id="discount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Facultatif">
+      </div>
+      <div class="field full">
+        <label for="url">URL DU PRODUIT OU DE L’ANNONCE (FACULTATIF)</label>
+        <input id="url" type="url" inputmode="url" placeholder="https://...">
+      </div>
+      <div class="field full">
+        <label for="details">DÉTAILS / QUANTITÉS / GARANTIE / MAIN-D’ŒUVRE</label>
+        <textarea id="details" rows="3" placeholder="Ajoutez les informations utiles…"></textarea>
+      </div>
+    </div>
+
+    <div class="quota" id="quotaStatus" aria-live="polite">3 analyses offertes disponibles sur cet appareil.</div>
+
+    <div class="actions">
+      <button type="button" class="btn secondary" id="readButton">Lire le document</button>
+      <button type="button" class="btn primary" id="analyzeButton">Analyser avec l’IA</button>
+    </div>
+
+    <div id="ocrStatus" class="status" role="status" aria-live="polite"></div>
+    <progress id="ocrProgress" max="100" value="0" class="hidden"></progress>
+
+    <div class="field" style="margin-top:12px">
+      <label for="ocrText">TEXTE RECONNU (VÉRIFIEZ LES CHIFFRES)</label>
+      <textarea id="ocrText" rows="7" placeholder="Le texte extrait apparaîtra ici. Vous pouvez aussi coller du texte manuellement."></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn" id="extractButton">Extraire les montants</button>
+      <button type="button" class="btn" id="clearTextButton">Effacer le texte</button>
+    </div>
+
+    <div id="result" class="result" aria-live="polite"></div>
+
+    <details class="panel admin-panel">
+      <summary>Accès administrateur — tests</summary>
+      <p class="muted">Réservé au propriétaire du projet. Le secret n’est pas enregistré dans le navigateur.</p>
+      <div class="field">
+        <label for="adminToken">SECRET ADMINISTRATEUR</label>
+        <input id="adminToken" type="password" autocomplete="off" placeholder="Saisir le secret Cloudflare">
+      </div>
+      <div class="actions">
+        <button type="button" class="btn primary" id="adminLoginButton">Vérifier l’accès</button>
+        <button type="button" class="btn" id="adminLogoutButton">Désactiver le mode test</button>
+      </div>
+      <div id="adminStatus" class="status" role="status" aria-live="polite"></div>
+    </details>
+
+    <p class="muted small">Les résultats sont indicatifs. Les prix du marché ne sont fiables que si des données de comparaison pertinentes sont disponibles. Vérifiez les montants sur le document original.</p>
+  </section>
 </main>
-<footer><div class="wrap"><strong>✓ Le Bon Deal</strong><p>Prototype en construction. Aucune fonction de paiement ni publicité rémunérée n’est activée.</p></div></footer>
+
+<footer>
+  <div class="wrap">
+    <strong>✓ Le Bon Deal</strong>
+    <p>Prototype en construction. Aucune fonction de paiement ni publicité rémunérée n’est activée.</p>
+  </div>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
 <script>
 'use strict';
 (() => {
-const $ = s => document.querySelector(s);
-const API_URL = 'https://le-bon-deal-ia.mehdi-larissi.workers.dev/analyze';
-const categories = {
- achat:['Électronique','Maison & jardin','Véhicules','Mode & accessoires','Loisirs & sport','Électroménager','Bricolage & outils','Autres articles'],
- service:['Travaux & rénovation','Électricité & domotique','Plomberie','Chauffage','Mécanique automobile','Peinture & décoration','Jardinage','Autres services']
-};
-let kind='achat', file=null, worker=null, reading=null;
-const freeKey='lbd_free_analyses_v2', maxBytes=15*1024*1024;
-const money=n=>Number.isFinite(n)?n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'non identifié';
-function status(message,type='info'){const e=$('#ocrStatus');e.textContent=message;e.className='status '+type;}
-function used(){try{return Math.max(0,Number(localStorage.getItem(freeKey)||0)||0)}catch(e){return 0}}
-function updateQuota(){const left=Math.max(0,3-used());$('#quotaStatus').textContent=left+' analyse(s) offerte(s) restante(s) sur cet appareil.'}
-function setKind(k){kind=k;document.querySelectorAll('[data-kind]').forEach(b=>b.classList.toggle('active',b.dataset.kind===k));const select=$('#category'),old=select.value;select.replaceChildren();categories[k].forEach(name=>{const o=document.createElement('option');o.value=name;o.textContent=name;select.append(o)});if(categories[k].includes(old))select.value=old}
-document.querySelectorAll('[data-kind]').forEach(b=>b.addEventListener('click',()=>setKind(b.dataset.kind)));
-function isPdf(f){return f.type==='application/pdf'||/\.pdf$/i.test(f.name)}
-function isWord(f){return /\.(doc|docx)$/i.test(f.name)}
-function chooseFile(f){if(!f)return;if(f.size>maxBytes){status('Fichier trop volumineux : maximum 15 Mo.','warn');return}if(!(f.type.startsWith('image/')||isPdf(f)||isWord(f))){status('Choisissez une image, un PDF ou un fichier Word.','warn');return}file=f;$('#ocrText').value='';status('Fichier sélectionné : '+f.name+(isWord(f)?'. Convertissez-le en PDF pour le lire automatiquement.':'. Vous pouvez lancer la lecture.'),'ok')}
-$('#file').addEventListener('change',e=>chooseFile(e.target.files[0]));$('#camera').addEventListener('change',e=>chooseFile(e.target.files[0]));
-function parseMoney(value){let s=String(value).replace(/\u00a0/g,' ').replace(/\s/g,'').replace(/€/g,'').replace(/EUR/ig,'').replace(/,(?=\d{1,2}$)/,'.');if(/^\d{1,3}(\.\d{3})+$/.test(s))s=s.replace(/\./g,'');const n=Number(s);return Number.isFinite(n)?n:null}
-function extractData(text){const lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);const line=regex=>lines.find(x=>regex.test(x))||'';const get=s=>{const m=s.match(/\d[\d .]*(?:,\d{1,2}|\.\d{1,2})/);return m?parseMoney(m[0]):null};const totalLine=line(/total.{0,18}(payer|ttc|facture)?|net à payer|montant total|total dû/i),discountLine=line(/remise|rabais|réduction|promotion/i),originalLine=line(/prix initial|prix avant|prix public|prix conseillé|avant remise/i);return {lines,total:get(totalLine),discount:get(discountLine),original:get(originalLine),totalLine,discountLine,originalLine,productLine:lines.find(x=>/(xiaomi|samsung|iphone|redmi|smartphone|ordinateur|chauffe.?eau|remplacement|main.?d.?oeuvre|référence|modèle)/i.test(x)&&x.length>3)||''}}
-async function readDocument(){if(reading)return reading;if(!file){status('Choisissez d’abord une photo ou un PDF.','warn');return ''}if(isWord(file)){status('La lecture directe des fichiers Word n’est pas activée. Enregistrez le document en PDF puis sélectionnez-le.','warn');return ''}if(!window.Tesseract){status('Le moteur de lecture ne s’est pas chargé. Vérifiez Internet puis rechargez la page.','warn');return ''}$('#readButton').disabled=true;$('#ocrProgress').classList.remove('hidden');$('#ocrProgress').value=0;
-reading=(async()=>{try{let source=file;if(isPdf(file)){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;const page=await pdf.getPage(1),viewport=page.getViewport({scale:2}),canvas=document.createElement('canvas');canvas.width=viewport.width;canvas.height=viewport.height;await page.render({canvasContext:canvas.getContext('2d'),viewport}).promise;source=canvas}worker=await Tesseract.createWorker('fra',1,{logger:m=>{if(m.progress!=null)$('#ocrProgress').value=Math.round(m.progress*100);if(m.status)status('Lecture : '+m.status+(m.progress!=null?' — '+Math.round(m.progress*100)+' %':''))}});const result=await worker.recognize(source),text=(result.data.text||'').trim();$('#ocrText').value=text;status(text?'Lecture terminée. Vérifiez les prix et les chiffres reconnus.':'Aucun texte lisible. Essayez une photo plus nette. ',text?'ok':'warn');return text}catch(e){status('Échec de lecture : '+(e.message||e),'warn');return ''}finally{if(worker){try{await worker.terminate()}catch(e){}worker=null}reading=null;$('#readButton').disabled=false;$('#ocrProgress').classList.add('hidden')}})();return reading}
-$('#readButton').addEventListener('click',readDocument);
-function renderResult(title,items){const box=$('#result');box.replaceChildren();const h=document.createElement('h3');h.textContent=title;box.append(h);const ul=document.createElement('ul');items.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});box.append(ul);const p=document.createElement('p');p.className='muted small';p.textContent='Résultat indicatif : relisez le document original. L’IA ne garantit pas l’exactitude et ne vérifie pas automatiquement les prix du marché.';box.append(p);box.style.display='block';box.scrollIntoView({behavior:'smooth',block:'nearest'})}
-$('#extractButton').addEventListener('click',()=>{const text=$('#ocrText').value.trim();if(!text){status('Aucun texte à analyser. Lancez la lecture ou collez le texte.','warn');return}const d=extractData(text);if(d.productLine&&!$('#item').value.trim())$('#item').value=d.productLine;if(d.total!==null&&!$('#price').value)$('#price').value=d.total;if(d.discount!==null&&!$('#discount').value)$('#discount').value=d.discount;if(d.original!==null&&!$('#originalPrice').value)$('#originalPrice').value=d.original;status('Extraction indicative :\nTotal repéré : '+(d.totalLine||'non identifié')+'\nRemise repérée : '+(d.discountLine||'non identifiée')+'\nPrix initial repéré : '+(d.originalLine||'non identifié'),'ok')});
-$('#clearTextButton').addEventListener('click',()=>{$('#ocrText').value='';status('Zone de texte effacée.','info')});
-async function analyze(){
-if(used()>=3){status('Les 3 analyses offertes sur cet appareil ont été utilisées.','warn');return}
-const url=$('#url').value.trim();if(url&&!/^https?:\/\//i.test(url)){status('L’URL doit commencer par http:// ou https://.','warn');return}
-if(file&&!isWord(file)&&!$('#ocrText').value.trim())await readDocument();
-const text=$('#ocrText').value.trim();const item=$('#item').value.trim(),price=parseMoney($('#price').value),original=parseMoney($('#originalPrice').value),discount=parseMoney($('#discount').value),details=$('#details').value.trim();
-if(!item&&price===null&&!details&&!url&&!text&&!file){status('Ajoutez un document, un produit, un prix, une URL ou des détails.','warn');return}
-if(file&&isWord(file)&&!text){status('Convertissez le fichier Word en PDF ou collez son texte dans la zone.','warn');return}
-const parts=['Besoin : '+(kind==='achat'?'Achat':'Réparation / Construction'),'Catégorie : '+$('#category').value,'Type de document : '+$('#mode').value,'Produit ou prestation : '+(item||'non précisé'),'Prix total : '+(price===null?'non précisé':money(price)),'Prix initial : '+(original===null?'non précisé':money(original)),'Remise : '+(discount===null?'non précisée':money(discount)),'URL fournie : '+(url||'aucune (le site ne sera pas ouvert automatiquement)'),'Détails : '+(details||'aucun'), 'Texte du document : '+(text||'aucun')];
-const payload=parts.join('\n');const button=$('#analyzeButton');button.disabled=true;button.textContent='Analyse IA en cours…';status('Envoi des informations à l’assistant IA sécurisé par votre Worker Cloudflare…','info');
-try{const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:payload})});let data;try{data=await response.json()}catch(e){throw new Error('La réponse du service n’est pas un JSON valide.')}if(!response.ok||!data.success||!data.analysis)throw new Error(data.error||data.details||('Erreur HTTP '+response.status));
-const items=[data.analysis];if(original!==null&&discount!==null&&price!==null){const expected=Math.round((original-discount)*100)/100;items.push(Math.abs(expected-price)<0.02?'Contrôle de remise : cohérent ('+money(original)+' − '+money(discount)+' = '+money(price)+').':'Attention : le calcul ne correspond pas. '+money(original)+' − '+money(discount)+' = '+money(expected)+', mais le total indiqué est '+money(price)+'. Vérifiez les frais et la TVA.')}
-const n=used()+1;try{localStorage.setItem(freeKey,String(n))}catch(e){}updateQuota();renderResult('Analyse de Le Bon Deal',items);status('Analyse IA terminée. Vérifiez les informations reconnues avant toute décision.','ok')
-}catch(e){status('L’analyse IA n’a pas abouti : '+(e.message||e)+'. Vérifiez que le Worker Cloudflare et son accès Workers AI sont actifs, puis réessayez.','warn')}finally{button.disabled=false;button.textContent='Analyser avec l’IA'}
-}
-$('#analyzeButton').addEventListener('click',analyze);
-setKind('achat');updateQuota();
+  const $ = s => document.querySelector(s);
+  const API_URL = 'https://le-bon-deal-ia.mehdi-larissi.workers.dev';
+  const categories = {
+    achat: [
+      'Électronique','Maison & jardin','Véhicules','Mode & accessoires',
+      'Loisirs & sport','Électroménager','Bricolage & outils','Autres articles'
+    ],
+    service: [
+      'Travaux & rénovation','Électricité & domotique','Plomberie',
+      'Chauffage','Mécanique automobile','Peinture & décoration',
+      'Jardinage','Autres services'
+    ]
+  };
+
+  let kind = 'achat';
+  let file = null;
+  let worker = null;
+  let reading = null;
+  let adminToken = '';
+
+  const freeKey = 'lbd_free_analyses_v2';
+  const maxBytes = 15 * 1024 * 1024;
+
+  const money = n => Number.isFinite(n)
+    ? n.toLocaleString('fr-FR', {style:'currency',currency:'EUR'})
+    : 'non identifié';
+
+  function status(message, type = 'info') {
+    const e = $('#ocrStatus');
+    e.textContent = message;
+    e.className = 'status ' + type;
+  }
+
+  function adminStatus(message, type = 'info') {
+    const e = $('#adminStatus');
+    e.textContent = message;
+    e.className = 'status ' + type;
+  }
+
+  function used() {
+    try {
+      return Math.max(0, Number(localStorage.getItem(freeKey) || 0) || 0);
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  function updateQuota() {
+    const left = Math.max(0, 3 - used());
+    $('#quotaStatus').textContent = adminToken
+      ? 'Mode administrateur actif : les analyses de test ne consomment pas les 3 essais.'
+      : left + ' analyse(s) offerte(s) restante(s) sur cet appareil.';
+  }
+
+  function setKind(k) {
+    kind = k;
+    document.querySelectorAll('[data-kind]').forEach(b =>
+      b.classList.toggle('active', b.dataset.kind === k)
+    );
+
+    const select = $('#category');
+    const old = select.value;
+    select.replaceChildren();
+
+    categories[k].forEach(name => {
+      const o = document.createElement('option');
+      o.value = name;
+      o.textContent = name;
+      select.append(o);
+    });
+
+    if (categories[k].includes(old)) select.value = old;
+  }
+
+  document.querySelectorAll('[data-kind]').forEach(b =>
+    b.addEventListener('click', () => setKind(b.dataset.kind))
+  );
+
+  function isPdf(f) {
+    return f.type === 'application/pdf' || /\.pdf$/i.test(f.name);
+  }
+
+  function isWord(f) {
+    return /\.(doc|docx)$/i.test(f.name);
+  }
+
+  function chooseFile(f) {
+    if (!f) return;
+
+    if (f.size > maxBytes) {
+      status('Fichier trop volumineux : maximum 15 Mo.', 'warn');
+      return;
+    }
+
+    if (!(f.type.startsWith('image/') || isPdf(f) || isWord(f))) {
+      status('Choisissez une image, un PDF ou un fichier Word.', 'warn');
+      return;
+    }
+
+    file = f;
+    $('#ocrText').value = '';
+    status(
+      'Fichier sélectionné : ' + f.name +
+      (isWord(f)
+        ? '. Convertissez-le en PDF pour le lire automatiquement.'
+        : '. Vous pouvez lancer la lecture.'),
+      'ok'
+    );
+  }
+
+  $('#file').addEventListener('change', e => chooseFile(e.target.files[0]));
+  $('#camera').addEventListener('change', e => chooseFile(e.target.files[0]));
+
+  function parseMoney(value) {
+    let s = String(value)
+      .replace(/\u00a0/g, ' ')
+      .replace(/\s/g, '')
+      .replace(/€/g, '')
+      .replace(/EUR/ig, '')
+      .replace(/,(?=\d{1,2}$)/, '.');
+
+    if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+
+    const n = Number(s);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function extractData(text) {
+    const lines = text.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+    const line = regex => lines.find(x => regex.test(x)) || '';
+    const get = s => {
+      const m = s.match(/\d[\d .]*(?:,\d{1,2}|\.\d{1,2})/);
+      return m ? parseMoney(m[0]) : null;
+    };
+
+    const totalLine = line(/total.{0,18}(payer|ttc|facture)?|net à payer|montant total|total dû/i);
+    const discountLine = line(/remise|rabais|réduction|promotion/i);
+    const originalLine = line(/prix initial|prix avant|prix public|prix conseillé|avant remise/i);
+
+    return {
+      total: get(totalLine),
+      discount: get(discountLine),
+      original: get(originalLine),
+      totalLine,
+      discountLine,
+      originalLine,
+      productLine: lines.find(x =>
+        /(xiaomi|samsung|iphone|redmi|smartphone|ordinateur|chauffe.?eau|remplacement|main.?d.?oeuvre|référence|modèle)/i.test(x) && x.length > 3
+      ) || ''
+    };
+  }
+
+  async function readDocument() {
+    if (reading) return reading;
+
+    if (!file) {
+      status('Choisissez d’abord une photo ou un PDF.', 'warn');
+      return '';
+    }
+
+    if (isWord(file)) {
+      status('La lecture directe des fichiers Word n’est pas activée. Enregistrez le document en PDF puis sélectionnez-le.', 'warn');
+      return '';
+    }
+
+    if (!window.Tesseract) {
+      status('Le moteur de lecture ne s’est pas chargé. Vérifiez Internet puis rechargez la page.', 'warn');
+      return '';
+    }
+
+    $('#readButton').disabled = true;
+    $('#ocrProgress').classList.remove('hidden');
+    $('#ocrProgress').value = 0;
+
+    reading = (async () => {
+      try {
+        let source = file;
+
+        if (isPdf(file)) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+          const pdf = await pdfjsLib.getDocument({
+            data: await file.arrayBuffer()
+          }).promise;
+
+          const page = await pdf.getPage(1);
+          const viewport = page.getViewport({scale:2});
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          await page.render({
+            canvasContext: canvas.getContext('2d'),
+            viewport
+          }).promise;
+
+          source = canvas;
+        }
+
+        worker = await Tesseract.createWorker('fra', 1, {
+          logger: m => {
+            if (m.progress != null) {
+              $('#ocrProgress').value = Math.round(m.progress * 100);
+            }
+            if (m.status) {
+              status(
+                'Lecture : ' + m.status +
+                (m.progress != null ? ' — ' + Math.round(m.progress * 100) + ' %' : '')
+              );
+            }
+          }
+        });
+
+        const result = await worker.recognize(source);
+        const text = (result.data.text || '').trim();
+        $('#ocrText').value = text;
+
+        status(
+          text
+            ? 'Lecture terminée. Vérifiez les prix et les chiffres reconnus.'
+            : 'Aucun texte lisible. Essayez une photo plus nette.',
+          text ? 'ok' : 'warn'
+        );
+
+        return text;
+      } catch (e) {
+        status('Échec de lecture : ' + (e.message || e), 'warn');
+        return '';
+      } finally {
+        if (worker) {
+          try { await worker.terminate(); } catch (e) {}
+          worker = null;
+        }
+        reading = null;
+        $('#readButton').disabled = false;
+        $('#ocrProgress').classList.add('hidden');
+      }
+    })();
+
+    return reading;
+  }
+
+  $('#readButton').addEventListener('click', readDocument);
+
+  function renderResult(title, items) {
+    const box = $('#result');
+    box.replaceChildren();
+
+    const h = document.createElement('h3');
+    h.textContent = title;
+    box.append(h);
+
+    const ul = document.createElement('ul');
+    items.forEach(x => {
+      const li = document.createElement('li');
+      li.textContent = x;
+      ul.append(li);
+    });
+    box.append(ul);
+
+    const p = document.createElement('p');
+    p.className = 'muted small';
+    p.textContent = 'Résultat indicatif : relisez le document original. L’IA ne garantit pas l’exactitude et ne vérifie pas automatiquement les prix du marché.';
+    box.append(p);
+
+    box.style.display = 'block';
+    box.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  $('#extractButton').addEventListener('click', () => {
+    const text = $('#ocrText').value.trim();
+
+    if (!text) {
+      status('Aucun texte à analyser. Lancez la lecture ou collez le texte.', 'warn');
+      return;
+    }
+
+    const d = extractData(text);
+
+    if (d.productLine && !$('#item').value.trim()) $('#item').value = d.productLine;
+    if (d.total !== null && !$('#price').value) $('#price').value = d.total;
+    if (d.discount !== null && !$('#discount').value) $('#discount').value = d.discount;
+    if (d.original !== null && !$('#originalPrice').value) $('#originalPrice').value = d.original;
+
+    status(
+      'Extraction indicative :\n' +
+      'Total repéré : ' + (d.totalLine || 'non identifié') + '\n' +
+      'Remise repérée : ' + (d.discountLine || 'non identifiée') + '\n' +
+      'Prix initial repéré : ' + (d.originalLine || 'non identifié'),
+      'ok'
+    );
+  });
+
+  $('#clearTextButton').addEventListener('click', () => {
+    $('#ocrText').value = '';
+    status('Zone de texte effacée.', 'info');
+  });
+
+  async function adminLogin() {
+    const token = $('#adminToken').value.trim();
+    const button = $('#adminLoginButton');
+
+    if (!token) {
+      adminStatus('Saisissez le secret administrateur.', 'warn');
+      return;
+    }
+
+    button.disabled = true;
+    adminStatus('Vérification de l’accès auprès de Cloudflare…', 'info');
+
+    try {
+      const response = await fetch(API_URL + '/admin-check', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Token': token
+        },
+        body: JSON.stringify({})
+      });
+
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        throw new Error('Réponse invalide du Worker.');
+      }
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Secret refusé.');
+      }
+
+      adminToken = token;
+      $('#adminToken').value = '';
+      adminStatus('Accès administrateur validé pour cette session.', 'ok');
+      updateQuota();
+    } catch (e) {
+      adminToken = '';
+      updateQuota();
+      adminStatus(
+        'Accès refusé ou route /admin-check non configurée : ' +
+        (e.message || e),
+        'warn'
+      );
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  $('#adminLoginButton').addEventListener('click', adminLogin);
+
+  $('#adminLogoutButton').addEventListener('click', () => {
+    adminToken = '';
+    $('#adminToken').value = '';
+    adminStatus('Mode administrateur désactivé.', 'info');
+    updateQuota();
+  });
+
+  async function analyze() {
+    if (used() >= 3 && !adminToken) {
+      status('Les 3 analyses offertes sur cet appareil ont été utilisées.', 'warn');
+      return;
+    }
+
+    const url = $('#url').value.trim();
+
+    if (url && !/^https?:\/\//i.test(url)) {
+      status('L’URL doit commencer par http:// ou https://.', 'warn');
+      return;
+    }
+
+    if (file && !isWord(file) && !$('#ocrText').value.trim()) {
+      await readDocument();
+    }
+
+    const text = $('#ocrText').value.trim();
+    const item = $('#item').value.trim();
+    const price = parseMoney($('#price').value);
+    const original = parseMoney($('#originalPrice').value);
+    const discount = parseMoney($('#discount').value);
+    const details = $('#details').value.trim();
+
+    if (!item && price === null && !details && !url && !text && !file) {
+      status('Ajoutez un document, un produit, un prix, une URL ou des détails.', 'warn');
+      return;
+    }
+
+    if (file && isWord(file) && !text) {
+      status('Convertissez le fichier Word en PDF ou collez son texte dans la zone.', 'warn');
+      return;
+    }
+
+    const parts = [
+      'Besoin : ' + (kind === 'achat' ? 'Achat' : 'Réparation / Construction'),
+      'Catégorie : ' + $('#category').value,
+      'Type de document : ' + $('#mode').value,
+      'Produit ou prestation : ' + (item || 'non précisé'),
+      'Prix total : ' + (price === null ? 'non précisé' : money(price)),
+      'Prix initial : ' + (original === null ? 'non précisé' : money(original)),
+      'Remise : ' + (discount === null ? 'non précisée' : money(discount)),
+      'URL fournie : ' + (url || 'aucune (le site ne sera pas ouvert automatiquement)'),
+      'Détails : ' + (details || 'aucun'),
+      'Texte du document : ' + (text || 'aucun')
+    ];
+
+    const payload = parts.join('\n');
+    const button = $('#analyzeButton');
+    button.disabled = true;
+    button.textContent = 'Analyse IA en cours…';
+    status('Envoi des informations au Worker Cloudflare…', 'info');
+
+    try {
+      const headers = {'Content-Type':'application/json'};
+
+      if (adminToken) headers['X-Admin-Token'] = adminToken;
+
+      const response = await fetch(API_URL + '/analyze', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({text:payload})
+      });
+
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        throw new Error('La réponse du service n’est pas un JSON valide.');
+      }
+
+      if (!response.ok || !data.success || !data.analysis) {
+        throw new Error(data.error || data.details || ('Erreur HTTP ' + response.status));
+      }
+
+      const items = [data.analysis];
+
+      if (original !== null && discount !== null && price !== null) {
+        const expected = Math.round((original - discount) * 100) / 100;
+        items.push(
+          Math.abs(expected - price) < 0.02
+            ? 'Contrôle de remise : cohérent (' + money(original) + ' − ' + money(discount) + ' = ' + money(price) + ').'
+            : 'Attention : le calcul ne correspond pas. ' + money(original) +
+              ' − ' + money(discount) + ' = ' + money(expected) +
+              ', mais le total indiqué est ' + money(price) +
+              '. Vérifiez les frais et la TVA.'
+        );
+      }
+
+      if (!adminToken) {
+        const n = used() + 1;
+        try {
+          localStorage.setItem(freeKey, String(n));
+        } catch (e) {}
+      }
+
+      updateQuota();
+      renderResult('Analyse de Le Bon Deal', items);
+      status('Analyse IA terminée. Vérifiez les informations reconnues avant toute décision.', 'ok');
+    } catch (e) {
+      status(
+        'L’analyse IA n’a pas abouti : ' + (e.message || e) +
+        '. Vérifiez que le Worker Cloudflare est actif.',
+        'warn'
+      );
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Analyser avec l’IA';
+    }
+  }
+
+  $('#analyzeButton').addEventListener('click', analyze);
+
+  setKind('achat');
+  updateQuota();
 })();
 </script>
 </body>
