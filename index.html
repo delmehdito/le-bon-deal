@@ -119,7 +119,15 @@ $('analyzeBtn').addEventListener('click',async()=>{
   kind:$('kind').value,category:$('category').value,item:$('item').value.trim(),
   price:parseMoney($('price').value),originalPrice:parseMoney($('originalPrice').value),
   discount:parseMoney($('discount').value),location:$('location').value.trim(),
-  url:$('url').value.trim(),details:$('details').value.trim(),text:$('ocrText').value.trim()
+  url:$('url').value.trim(),details:$('details').value.trim(),text: [
+  $('ocrText').value.trim(),
+  $('item').value.trim(),
+  $('category').value.trim(),
+  $('price').value.trim() ? 'Prix : ' + $('price').value.trim() + ' €' : '',
+  $('location').value.trim() ? 'Localisation : ' + $('location').value.trim() : '',
+  $('url').value.trim(),
+  $('details').value.trim()
+].filter(Boolean).join('\n')
  };
  if(!payload.item&&!payload.text&&!payload.url&&!payload.details){setStatus('Ajoutez un nom, un texte de devis ou une URL avant de lancer l’analyse.');return;}
  if(payload.url&&!/^https?:\/\//i.test(payload.url)){setStatus('Le lien doit commencer par https:// ou http://.');return;}
