@@ -9,4 +9,4 @@ binding = "IA"
 [[d1_databases]]
 binding = "DB"
 database_name = "le-bon-deal-db"
-database_id = "A_REMPLACER_PAR_TON_ID_D1"
+database_id = "47b32f57-57c8-45f1-833c-b180317abc66"
