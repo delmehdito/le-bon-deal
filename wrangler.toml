@@ -1,6 +1,12 @@
+
 name = "le-bon-deal-ia"
 main = "worker.js"
 compatibility_date = "2026-10-12"
 
 [ai]
-binding = "AI"
+binding = "IA"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "le-bon-deal-db"
+database_id = "A_REMPLACER_PAR_TON_ID_D1"
